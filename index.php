@@ -1,3 +1,8 @@
+<?php
+    include_once('conexao.php');
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +26,9 @@
             $email   = $_POST['email'];
             $recado  = $_POST['recado'];
             echo "$usuario - $email -  $recado";
+            $result_recado =    "INSERT INTO recados (nome, email, recado, created) 
+                                VALUES ('$usuario', '$email', '$recado', NOW())";
+            $resultado_recados = mysqli_query($conn, $result_recado);
         }
     ?>
 
