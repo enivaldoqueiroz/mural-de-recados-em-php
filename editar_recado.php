@@ -1,14 +1,16 @@
 <?php
-	session_start();
 	include_once('conexao.php');
 	
-	$result_recado_bd = "SELECT * FROM recados";
-	$resultado_recado_bd = mysqli_query($conn, $result_recado_bd);
+	$id = $_GET['id'];
+
+	//Buscar os dados referente ao recado neste id
+	$result_recados = "SELECT * FROM recados WHERE id = '$id' LIMIT 1";
+	$resultado_recados = mysqli_query($conn, $result_recados);
+	$row_recados = mysqli_fetch_assoc($resultado_recados);
 ?>
-<!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
+	<head>
+		<meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Required meta tags -->
@@ -21,7 +23,7 @@
 	</head>
 	<body>
 		<!-- Fixed navbar -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">Mural de Recados</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,47 +47,43 @@
 
 		<div class="container theme-showcase" role="main">
 			<div class="page-header">
-				<h1>Lista de Recados</h1>
+				<h1>Editar Recados</h1>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
-					<table class="table">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Nome</th>
-								<th>E-mail</th>
-								<th>Inserido</th>
-								<th>Ações</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php while($rows = mysqli_fetch_assoc($resultado_recado_bd)){ ?>
-								<tr>
-									<td><?php echo $rows['id']; ?></td>
-									<td><?php echo $rows['nome']; ?></td>
-									<td><?php echo $rows['email']; ?></td>
-									<td><?php echo $rows['created']; ?></td>
-									<td>
-										<a href="visualizar_recado.php?id=<?php echo $rows['id']; ?>">
-											<button type="button" class="btn btn-xs btn-primary">Visualizar</button>
-										</a>
-										<a href="editar_recado.php?id=<?php echo $rows['id']; ?>">
-											<button type="button" class="btn btn-xs btn-warning">Editar</button>
-										</a>
-										<a href="apagar_recado.php?id=<?php echo $rows['id']; ?>">
-											<button type="button" class="btn btn-xs btn-danger">Apagar</button>
-										</a>
-									</td>
-								</tr>  
-							<?php } ?>
-						</tbody>
-					</table>
+				<div class="pull-right" style="padding-bottom: 20px; ">
+					<a href="index.php"><button type='button' class='btn btn-sm btn-success'>Listar</button></a>
 				</div>
 			</div>
+			<form class="form-horizontal" method="POST" action="processar_editar_recado.php" enctype="multipart/form-data">
+			
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Nome</label>
+					<div class="col-sm-10">
+						<input type="text" name="nome" class="form-control" id="inputEmail3" placeholder="Nome Completo" value="<?php echo $row_recados['nome']; ?>">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">E-mail</label>
+					<div class="col-sm-10">
+						<input type="text" name="email" class="form-control" id="inputEmail3" placeholder="E-mail" value="<?php echo $row_recados['email']; ?>">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Recado</label>
+					<div class="col-sm-10">						
+						<textarea  name="recado" class="form-control" rows="3"><?php echo $row_recados['recado']; ?></textarea>						
+					</div>
+				</div>
+						
+				<input type="hidden" name="id" value="<?php echo $row_recados['id']; ?>">
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-warning">Alterar</button>
+					</div>
+				</div>
+			</form>
 		</div>
-		
-		<br>
-		
 	</body>
 </html>
