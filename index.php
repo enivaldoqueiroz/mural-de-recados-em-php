@@ -30,6 +30,17 @@
                                 VALUES ('$usuario', '$email', '$recado', NOW())";
             $resultado_recados = mysqli_query($conn, $result_recado);
         }
+        echo "<h2>Lista de Recados</h2>";
+        $result_recado_bd = "SELECT * FROM recados";
+        $resultado_recado_bd = mysqli_query($conn, $result_recado_bd);
+        if(mysqli_num_rows($resultado_recado_bd) <= 0){
+            echo"NÃO EXISTE RECADO...";
+        }else{
+            while ($rows = mysqli_fetch_assoc($resultado_recado_bd)) {
+                echo "<h4>".$rows['nome']."</h4>";
+                echo $rows['recado'].'<br>';
+            }
+        }
     ?>
 
 </body>
