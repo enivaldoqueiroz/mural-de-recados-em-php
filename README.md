@@ -1,4 +1,4 @@
-# mural-de-recados-em-php
+### Mural de recados em PHP
 Projeto mural de recados implementado em PHP  para disciplina sistemas distribuídos. 
 
 
