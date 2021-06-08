@@ -8,7 +8,7 @@ Projeto mural de recados implementado em PHP  para disciplina sistemas distribu�
 ### Implementação da tela principal(Home) em html
 ![](https://github.com/enivaldoqueiroz/mural-de-recados-em-php/blob/main/img/img002.png)
 
-### Tela de catradas de Recados com a lista de recados
+### Tela de catastro de Recados com a lista de recados
 ![](https://github.com/enivaldoqueiroz/mural-de-recados-em-php/blob/main/img/img003.png)
 
 ### Tela de Edição de Recado de determina usuário 
